@@ -1,0 +1,16 @@
+{
+  "name": "manshur-fanavari-task",
+  "version": "1.0.0",
+  "description": "Front end Authentication task assignment",
+  "scripts": {
+    "spell-check": "cspell lint \"**\"",
+    "dev":"pnpm --filter web dev"
+  },
+  "keywords": [],
+  "author": "Gooddevil",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.4",
+  "dependencies": {
+    "cspell": "^8.18.1"
+  }
+}
