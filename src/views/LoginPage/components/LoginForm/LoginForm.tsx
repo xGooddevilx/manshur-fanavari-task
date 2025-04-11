@@ -4,7 +4,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginFormSchema } from "./useLoginFormSchema";
 import { z } from "zod";
+import { useApiClient } from "@/api-services/api-client/useApiClient";
+import { useRouter } from "next/navigation";
 export const LoginForm = () => {
+	const router = useRouter()
 	const FormSchema = useLoginFormSchema();
 
   type FormDataType = z.infer<typeof FormSchema>;
@@ -17,9 +20,19 @@ export const LoginForm = () => {
 		resolver: zodResolver(FormSchema),
 	});
 
-	const onSubmit = (data:FormDataType) => {
+
+	const apiClient = useApiClient()
+
+	const onSubmit = async (data:FormDataType) => {
 		console.log("Form data:", data);
-    
+	try {
+		const response = await apiClient.post("auth/login", {json:data})
+		const responseData = await response.json()
+		console.log(responseData);
+		router.replace('/')
+	} catch (error) {
+			console.log(error);
+	}	
 	};
 
 	return (
