@@ -1,7 +1,9 @@
 {
 	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
 	"version": "0.2",
-	"languages": ["en"],
+	"languages": [
+		"en"
+	],
 	"ignorePaths": [
 		"node_modules",
 		"package.json",
@@ -9,5 +11,9 @@
 		"pnpm-lock.yaml",
 		"tsconfig.tsbuildinfo",
 		"*.svg"
+	],
+	"words": [
+		"Fanavari",
+		"Manshure"
 	]
 }
