@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
-import { User, SafeUser } from '../types';
+import { User, SafeUser } from './../types';
 
 const JWT_SECRET = 'your-secret-key'; // replace with env var
 
