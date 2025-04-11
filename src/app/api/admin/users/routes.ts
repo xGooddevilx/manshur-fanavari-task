@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { findUserByCredentials } from './../../lib/db';
 import { generateToken, setTokenCookie } from './../../lib/auth';
-import { LoginRequest } from './../../types';
+import { LoginVariables } from '@/api-services/types';
 
 export async function POST(request: NextRequest) {
-  const body = await request.json() as LoginRequest;
+  const body = await request.json() as LoginVariables;
   const { username, password } = body;
 
   if (!username || !password) {

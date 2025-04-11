@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
-import { User, SafeUser } from './../types';
+import { User, UserDto } from '@/api-services/types';
 import { serverEnvironments } from '@/modules/env/server';
 
 const JWT_SECRET = serverEnvironments.JWT_SECRET
@@ -10,9 +10,9 @@ export function generateToken(user: User): string {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
 }
 
-export function verifyToken(token: string): SafeUser | null {
+export function verifyToken(token: string): UserDto | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as SafeUser;
+    return jwt.verify(token, JWT_SECRET) as UserDto;
   } catch {
     return null;
   }

@@ -1,4 +1,4 @@
-import { User, SafeUser } from './../types';
+import { User, UserDto } from '@/api-services/types/User';
 
 
 const users: User[] = [
@@ -22,6 +22,6 @@ export function findUserByCredentials(username: string, password: string): User 
   return users.find(u => u.username === username && u.password === password);
 }
 
-export function getAllUsers(): SafeUser[] {
+export function getAllUsers(): UserDto[] {
   return users.map(({ password, ...rest }) => rest);
 }
