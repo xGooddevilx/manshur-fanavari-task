@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Manshure Fanavari Task
 
-## Getting Started
+## 🚀 Features
+- **Role-Based Access Control**: Admin and User roles with distinct dashboards.
+- **JWT Authentication**: Secure token-based authentication stored in HTTP-only cookies.
+- **Protected Routes**: Middleware to restrict access based on user roles.
+- **Session Persistence**: Maintains user sessions across page reloads.
+- **API Integration**: Seamless communication with Next.js API routes using `ky`.
+- **State Management**: Efficient data fetching and caching with React Query.
+- **Type Safety**: Comprehensive TypeScript interfaces and types.
+- **Error Handling**: User-friendly error messages and loading indicators.
 
-First, run the development server:
+## 🛠️ Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Next.js](https://nextjs.org/) (App Router)
+- [TypeScript](https://www.typescriptlang.org/)
+- [JWT](https://jwt.io/)
+- [React Query](https://tanstack.com/query/latest)
+- [ky](https://github.com/sindresorhus/ky) for HTTP requests
+- [T3 Env](https://github.com/t3-oss/t3-env) for environment variable management
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Sample Users
 
-## Learn More
+| Username | Password  | Role  |
+|----------|-----------|-------|
+| admin    | admin123  | admin |
+| user     | user123   | user  |
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧰 Getting Started
 
-## Deploy on Vercel
+### Prerequisites
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Node.js v20 or higher
+- pnpm
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Installation
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/yourusername/nextjs-role-based-auth.git
+   cd nextjs-role-based-auth
+  ```
+
+2. **Install Dependencies**
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+  ```
+
+3. **Configure Environment Variables**
+
+   Create a `.env.local` file in the root directory:
+
+   ```env
+   JWT_SECRET=your-secure-jwt-secret
+  ```
+
+   **Note**: Generate a strong secret using Node.js:
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+  ```
+
+4. **Run the Development Server**
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+  ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🧱 API Endpoints
+
+- `POST /api/auth/login`: Authenticate user credentials.
+- `POST /api/auth/logout`: Terminate user session.
+- `GET /api/auth/whoami`: Retrieve current authenticated user.
+- `GET /api/admin/users`: Fetch all users (Admin only).

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { findUserByCredentials } from './../lib/db';
-import { generateToken, setTokenCookie } from './../lib/auth';
-import { LoginRequest } from './../types';
+import { findUserByCredentials } from '../../lib/db';
+import { generateToken, setTokenCookie } from '../../lib/auth';
+import { LoginRequest } from '../../types';
 
 export async function POST(request: NextRequest) {
   const body = await request.json() as LoginRequest;
