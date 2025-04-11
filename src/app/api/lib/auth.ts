@@ -20,7 +20,7 @@ export function verifyToken(token: string): UserDto | null {
 
 export async function setTokenCookie(token: string) {
   const cookieStore = cookies();
-  (await cookieStore).set('token', token, {
+  (await cookieStore).set('jwt_token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: 60 * 60 * 24,
@@ -30,7 +30,7 @@ export async function setTokenCookie(token: string) {
 
 export async function clearTokenCookie() {
   const cookieStore = cookies();
-  (await cookieStore).set('token', '', {
+  (await cookieStore).set('jwt_token', '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: 0,
@@ -40,5 +40,5 @@ export async function clearTokenCookie() {
 
 export async function getTokenFromCookie(): Promise<string | undefined> {
   const cookieStore = cookies();
-  return (await cookieStore).get('token')?.value;
+  return (await cookieStore).get('jwt_token')?.value;
 }
