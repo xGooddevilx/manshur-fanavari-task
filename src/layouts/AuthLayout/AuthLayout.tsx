@@ -6,6 +6,6 @@ type Props = {
 
 export const AuthLayout = ({children}:Props) => {
   return (
-    <div>{children}</div>
+    <div className='flex justify-center items-center h-dvh'>{children}</div>
   )
 }

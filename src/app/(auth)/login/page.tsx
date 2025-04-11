@@ -1,9 +1,7 @@
-import React from 'react'
+import { LoginPage } from "@/views/LoginPage/LoginPage";
 
- const Page = () => {
-  return (
-    <div>Login Page</div>
-  )
-}
+const Page = () => {
+	return <LoginPage/>
+};
 
-export default Page
+export default Page;
