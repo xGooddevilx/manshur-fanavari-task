@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { User, SafeUser } from './../types';
+import { serverEnvironments } from '@/modules/env/server';
 
-const JWT_SECRET = 'your-secret-key'; // replace with env var
+const JWT_SECRET = serverEnvironments.JWT_SECRET
 
 export function generateToken(user: User): string {
   const { password, ...payload } = user;
