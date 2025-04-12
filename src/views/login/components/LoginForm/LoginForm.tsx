@@ -7,6 +7,7 @@ import { z } from "zod";
 import { useApiClient } from "@/api-services/api-client/useApiClient";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/modules/auth/useAuth/useAuth";
+import { Input } from "@/components/ui/Input";
 export const LoginForm = () => {
 	const router = useRouter();
 	const { login } = useAuth();
@@ -40,11 +41,7 @@ export const LoginForm = () => {
 			>
 				<div>
 					<label className="block text-sm font-medium mb-1">Username</label>
-					<input
-						type="text"
-						{...register("username")}
-						className="w-full border border-gray-300 p-2 rounded"
-					/>
+					<Input type="text" inputMode="text" {...register("username")} />
 					{errors.username && (
 						<p className="text-red-500 text-sm">{errors.username.message}</p>
 					)}
@@ -52,11 +49,7 @@ export const LoginForm = () => {
 
 				<div>
 					<label className="block text-sm font-medium mb-1">Password</label>
-					<input
-						type="password"
-						{...register("password")}
-						className="w-full border border-gray-300 p-2 rounded"
-					/>
+					<Input type="password" inputMode="text" {...register("password")} />
 					{errors.password && (
 						<p className="text-red-500 text-sm">{errors.password.message}</p>
 					)}
