@@ -1,5 +1,5 @@
 import { createEnv } from '@t3-oss/env-nextjs';
-import { stringSchema } from './schemas';
+import { stringSchema, urlSchema } from './schemas';
 
 export const serverEnvironments = createEnv({
 	server: {
