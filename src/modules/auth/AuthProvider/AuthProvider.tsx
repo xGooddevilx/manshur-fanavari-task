@@ -47,7 +47,7 @@ export const AuthProvider = ({
 		try {
 			setUser(undefined);
 			setIsAuthenticating(true);
-			await apiClient.get("auth/logout");
+			await apiClient.post("auth/logout");
 		} finally {
 			setIsAuthenticating(false);
 		}

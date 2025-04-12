@@ -1,7 +1,8 @@
+import { clientEnvironments } from '@/modules/env/client';
 import ky from 'ky';
 
 export const apiClient = ky.create({
-  prefixUrl: '/api',
+  prefixUrl: clientEnvironments.NEXT_PUBLIC_API_PREFIX_URL,
   headers: {
     'Content-Type': 'application/json',
   },
