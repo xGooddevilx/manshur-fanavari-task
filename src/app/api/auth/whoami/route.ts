@@ -13,5 +13,5 @@ export async function GET() {
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
   }
 
-  return NextResponse.json({ user });
+  return NextResponse.json(user);
 }

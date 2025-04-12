@@ -6,11 +6,14 @@ import { useLoginFormSchema } from "./useLoginFormSchema";
 import { z } from "zod";
 import { useApiClient } from "@/api-services/api-client/useApiClient";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/modules/auth/useAuth/useAuth";
 export const LoginForm = () => {
-	const router = useRouter()
+	const router = useRouter();
+	const { login } = useAuth();
+
 	const FormSchema = useLoginFormSchema();
 
-  type FormDataType = z.infer<typeof FormSchema>;
+	type FormDataType = z.infer<typeof FormSchema>;
 
 	const {
 		handleSubmit,
@@ -20,19 +23,13 @@ export const LoginForm = () => {
 		resolver: zodResolver(FormSchema),
 	});
 
-
-	const apiClient = useApiClient()
-
-	const onSubmit = async (data:FormDataType) => {
-		console.log("Form data:", data);
-	try {
-		const response = await apiClient.post("auth/login", {json:data})
-		const responseData = await response.json()
-		console.log(responseData);
-		router.replace('/')
-	} catch (error) {
+	const onSubmit = async (data: FormDataType) => {
+		try {
+			login(data);
+			router.replace("/");
+		} catch (error) {
 			console.log(error);
-	}	
+		}
 	};
 
 	return (
