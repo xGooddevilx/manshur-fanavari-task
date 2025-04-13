@@ -1,33 +1,66 @@
 "use client";
 
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/Popover";
 import { useAuth } from "@/modules/auth/useAuth/useAuth";
+import { routes } from "@/modules/routes";
 import { G } from "@mobily/ts-belt";
-import { UserRoundIcon } from "lucide-react";
+import {
+	LayoutDashboardIcon,
+	Loader2Icon,
+	LogOutIcon,
+	UserRoundIcon,
+} from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export const User = () => {
 	const { isAuthenticated, isAuthenticating, user, logout } = useAuth();
 	const hasUser = isAuthenticated && G.isNotNullable(user);
+	const [open, setOpen] = useState(false);
+
+	const handleClose = () => setOpen(false);
 
 	return (
-		<div className="relative group inline-block">
-			<button className="flex items-center space-x-2 bg-gray-200 p-2 rounded-full hover:bg-gray-300 focus:outline-none">
+		<Popover open={open} onOpenChange={setOpen}>
+			<div className="flex items-center gap-2">
 				{hasUser && <p className="font-semibold">{user.name}</p>}
-				<UserRoundIcon />
-			</button>
-
-			{/* Dropdown */}
-			<div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10 hidden group-hover:block">
+				<PopoverTrigger className="flex items-center space-x-2 bg-gray-200 p-2 rounded-full hover:bg-gray-300 focus:outline-none">
+					{isAuthenticating ? (
+						<Loader2Icon className="animate-spin" />
+					) : (
+						<UserRoundIcon />
+					)}
+				</PopoverTrigger>
+			</div>
+			<PopoverContent className="me-2">
 				{hasUser ? (
 					<div>
-						<div className="px-4 py-2 text-gray-800 border-b">
-							<p className="font-semibold">{user.name}</p>
-							<p className="text-sm text-gray-600">{user.username}</p>
+						<div className="text-gray-800 border-b">
+							<Link
+								href={
+									user.role === "admin"
+										? routes.dashboard.adminDashboard
+										: routes.dashboard.userDashboard
+								}
+								className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-800 hover:bg-gray-100"
+								onClick={handleClose}
+							>
+								<LayoutDashboardIcon className="size-4" />
+								Dashboard
+							</Link>
 						</div>
 						<button
-							className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-100"
-							onClick={logout}
+							className="w-full px-4 py-2 text-left flex items-center gap-2 text-gray-800 hover:bg-red-100 hover:text-red-500"
+							onClick={() => {
+								logout();
+								handleClose();
+							}}
 						>
+							<LogOutIcon className="size-4" />
 							Logout
 						</button>
 					</div>
@@ -35,11 +68,12 @@ export const User = () => {
 					<Link
 						href="/login"
 						className="w-full px-4 py-2 block text-left text-gray-800 hover:bg-gray-100"
+						onClick={handleClose}
 					>
 						Login
 					</Link>
 				)}
-			</div>
-		</div>
+			</PopoverContent>
+		</Popover>
 	);
 };
