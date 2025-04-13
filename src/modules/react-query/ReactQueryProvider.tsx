@@ -16,7 +16,6 @@ const makeQueryClient = () => {
   });
 };
 
-// eslint-disable-next-line functional/no-let
 let browserQueryClient: QueryClient | undefined;
 
 const getQueryClient = () => {
