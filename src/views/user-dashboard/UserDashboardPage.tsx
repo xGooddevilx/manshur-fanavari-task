@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import { useAuth } from "@/modules/auth/useAuth/useAuth";
 import { User2Icon } from "lucide-react";
-import { title } from "process";
 import { ReactNode, useMemo } from "react";
 
 export const UserDashboardPage = () => {

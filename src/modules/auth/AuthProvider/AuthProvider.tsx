@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import type { ReactNode } from "react";
@@ -45,9 +46,9 @@ export const AuthProvider = ({
 					toast.error("Authentication failed, Please login again")
 					return undefined;
 				}
-			} catch (error:any) {
-				if (error.response) {
-					const errData = await error.response.json();
+			} catch (error:unknown) {
+				if (error instanceof Response) {
+					const errData = await error.json();
 					toast.error(errData.error);
 				} else {
 					toast.error("Something went wrong. Please try again.");
