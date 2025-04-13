@@ -8,6 +8,7 @@ import { apiClient } from "@/api-services/api-client/ApiClient";
 import { G } from "@mobily/ts-belt";
 import { UserDto } from "@/api-services/types";
 import { ssrGetUser } from "@/modules/auth/ssrGetUser";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -29,11 +30,10 @@ export const RootLayout = async ({
 }: Readonly<{
 	children: React.ReactNode;
 }>) => {
-
-	const user = await ssrGetUser()
+	const user = await ssrGetUser();
 
 	return (
-		<AuthProvider initialData={G.isNotNullable(user) ? user : undefined}>	
+		<AuthProvider initialData={G.isNotNullable(user) ? user : undefined}>
 			<ReactQueryProvider>
 				<html lang="en">
 					<body
@@ -44,6 +44,7 @@ export const RootLayout = async ({
 							buttonPosition="bottom-right"
 							initialIsOpen={false}
 						/>
+						<Toaster />
 					</body>
 				</html>
 			</ReactQueryProvider>

@@ -1,9 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
+import { useApiClient } from '../api-client/useApiClient';
+import { UserDto } from "../types";
+import { UsersApiResponse } from "../types/User";
 
 const useGetUserList = () => {
+	const apiClient = useApiClient()
+
 	const query = useQuery({
 		queryKey: ["userList"],
-		queryFn: () => fetch("/api/users").then(res => res.json()),
+		queryFn: async () => {
+			const result = await  apiClient.get("admin/users").json<UsersApiResponse>()
+			return result
+		},
 	});
     return query
 };

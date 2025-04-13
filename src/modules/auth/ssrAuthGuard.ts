@@ -1,18 +1,43 @@
-import { redirect } from 'next/navigation';
-import { ssrGetUser } from './ssrGetUser';
-import { routes } from '../routes';
+import { redirect } from "next/navigation";
+import { ssrGetUser } from "./ssrGetUser";
+import { routes } from "../routes";
+import { Role } from "@/api-services/types";
 
-type Parameters = {
-  against: 'authenticated-user' | 'unauthenticated-guest';
-};
+type GuardType =
+	| { against: "authenticated-user"; redirectTo?: string }
+	| { against: "unauthenticated-guest"; redirectTo?: string }
+	| { against: "role"; allowRole: Role; redirectTo?: string };
 
-export const ssrAuthGuard = async ({ against }: Parameters) => {
-  const user = await ssrGetUser();
+export const ssrAuthGuard = async (params: GuardType) => {
+	const user = await ssrGetUser();
 
-  if (user) {
-    if (against === 'authenticated-user') redirect(routes.home);
-  }
-  else {
-    if (against === 'unauthenticated-guest') redirect(routes.auth.login);
-  }
+	if (params.against === "authenticated-user") {
+		if (user) {
+			redirect(params.redirectTo ?? routes.home);
+		}
+		return;
+	}
+
+	if (params.against === "unauthenticated-guest") {
+		if (!user) {
+			redirect(params.redirectTo ?? routes.auth.login);
+		}
+		return;
+	}
+
+	if (params.against === "role") {
+		if (!user) {
+			redirect(routes.auth.login);
+		}
+
+		if (user.role !== params.allowRole) {
+
+			const fallback =
+				user.role === "admin"
+					? routes.dashboard.adminDashboard
+					: routes.dashboard.userDashboard;
+
+			redirect(params.redirectTo ?? fallback);
+		}
+	}
 };

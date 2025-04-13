@@ -8,8 +8,11 @@ import type { AuthContextType } from "./AuthContext";
 
 import { AuthContext } from "./AuthContext";
 import { G, R } from "@mobily/ts-belt";
-import { LoginVariables, UserDto } from "@/api-services/types";
+import { LoginResponse, LoginVariables, LogoutApiResponse, UserDto } from "@/api-services/types";
 import { apiClient } from "@/api-services/api-client/ApiClient";
+import { redirect } from "next/navigation";
+import { routes } from "@/modules/routes";
+import { toast } from "sonner";
 
 export type AuthProviderProperties = {
 	children: ReactNode;
@@ -27,17 +30,28 @@ export const AuthProvider = ({
 	const login = useCallback(
 		async (loginVariables: LoginVariables) => {
 			setIsAuthenticating(true);
-			await apiClient.post("auth/login", { json: loginVariables });
-			const userResult = await apiClient.get("auth/whoami").json<UserDto>();
+			try {
+				const response = await apiClient.post("auth/login", { json: loginVariables }).json<LoginResponse>();
+				const userResult = await apiClient.get("auth/whoami").json<UserDto | undefined>();
 
-			setIsAuthenticating(false);
+				if (G.isNotNullable(userResult)) {
+					setUser(userResult);
+					toast.success(response.message)
 
-			if (G.isNotNullable(userResult)) {
-				setUser(userResult);
-				return userResult;
-			} else {
-				console.log("Authentication failed!!!!");
-				return undefined;
+					return userResult;
+				} else {
+					toast.error("Authentication failed, Please login again")
+					return undefined;
+				}
+			} catch (error:any) {
+				if (error.response) {
+					const errData = await error.response.json();
+					toast.error(errData.error);
+				} else {
+					toast.error("Something went wrong. Please try again.");
+				}
+			} finally {
+				setIsAuthenticating(false);	
 			}
 		},
 		[setIsAuthenticating, setUser]
@@ -47,9 +61,13 @@ export const AuthProvider = ({
 		try {
 			setUser(undefined);
 			setIsAuthenticating(true);
-			await apiClient.post("auth/logout");
+			const response = await apiClient.post("auth/logout").json<LogoutApiResponse>();
+			
+			toast.success(response.message)
+
 		} finally {
 			setIsAuthenticating(false);
+			redirect(routes.auth.login);
 		}
 	}, []);
 
