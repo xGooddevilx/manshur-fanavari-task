@@ -11,6 +11,7 @@ import { G } from "@mobily/ts-belt";
 import {
 	LayoutDashboardIcon,
 	Loader2Icon,
+	LogInIcon,
 	LogOutIcon,
 	UserRoundIcon,
 } from "lucide-react";
@@ -67,9 +68,10 @@ export const User = () => {
 				) : (
 					<Link
 						href="/login"
-						className="w-full px-4 py-2 block text-left text-gray-800 hover:bg-gray-100"
+						className="w-full px-4 py-2 text-left flex items-center gap-2 text-gray-800 hover:bg-gray-100"
 						onClick={handleClose}
 					>
+						<LogInIcon className="size-4" />
 						Login
 					</Link>
 				)}

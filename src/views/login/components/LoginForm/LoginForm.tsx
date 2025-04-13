@@ -4,13 +4,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginFormSchema } from "./useLoginFormSchema";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/modules/auth/useAuth/useAuth";
 import { Input } from "@/components/ui/Input";
-import { routes } from "@/modules/routes";
 import { Loader2Icon } from "lucide-react";
 export const LoginForm = () => {
-	const router = useRouter();
 	const { login ,isAuthenticating} = useAuth();
 
 	const FormSchema = useLoginFormSchema();
@@ -27,8 +24,7 @@ export const LoginForm = () => {
 
 	const onSubmit = async (data: FormDataType) => {
 		try {
-			const user = await login(data);
-			if (user) router.replace(routes.home);
+			await login(data);
 		} catch (error) {
 			console.log(error);
 		}

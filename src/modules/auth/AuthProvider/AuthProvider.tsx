@@ -10,7 +10,7 @@ import { AuthContext } from "./AuthContext";
 import { G, R } from "@mobily/ts-belt";
 import { LoginResponse, LoginVariables, LogoutApiResponse, UserDto } from "@/api-services/types";
 import { apiClient } from "@/api-services/api-client/ApiClient";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { routes } from "@/modules/routes";
 import { toast } from "sonner";
 
@@ -26,6 +26,7 @@ export const AuthProvider = ({
 	const [isAuthenticating, setIsAuthenticating] = useState(false);
 	const [user, setUser] = useState<UserDto | undefined>(initialData);
 	const isAuthenticated = G.isNotNullable(user);
+	const router = useRouter()
 
 	const login = useCallback(
 		async (loginVariables: LoginVariables) => {
@@ -37,7 +38,8 @@ export const AuthProvider = ({
 				if (G.isNotNullable(userResult)) {
 					setUser(userResult);
 					toast.success(response.message)
-
+					router.push(userResult.role === "admin" ? routes.dashboard.adminDashboard : routes.dashboard.userDashboard)
+					
 					return userResult;
 				} else {
 					toast.error("Authentication failed, Please login again")
@@ -67,7 +69,7 @@ export const AuthProvider = ({
 
 		} finally {
 			setIsAuthenticating(false);
-			redirect(routes.auth.login);
+			router.replace(routes.auth.login)
 		}
 	}, []);
 
