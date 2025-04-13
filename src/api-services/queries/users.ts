@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from '../api-client/useApiClient';
-import { UserDto } from "../types";
 import { UsersApiResponse } from "../types/User";
 
 const useGetUserList = () => {
