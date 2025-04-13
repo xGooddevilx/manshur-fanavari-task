@@ -10,6 +10,8 @@ import { AuthContext } from "./AuthContext";
 import { G, R } from "@mobily/ts-belt";
 import { LoginVariables, UserDto } from "@/api-services/types";
 import { apiClient } from "@/api-services/api-client/ApiClient";
+import { redirect } from "next/navigation";
+import { routes } from "@/modules/routes";
 
 export type AuthProviderProperties = {
 	children: ReactNode;
@@ -48,8 +50,10 @@ export const AuthProvider = ({
 			setUser(undefined);
 			setIsAuthenticating(true);
 			await apiClient.post("auth/logout");
+
 		} finally {
 			setIsAuthenticating(false);
+			redirect(routes.auth.login)
 		}
 	}, []);
 

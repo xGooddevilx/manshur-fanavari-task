@@ -1,9 +1,9 @@
 import { ssrAuthGuard } from "@/modules/auth/ssrAuthGuard";
-import { routes } from "@/modules/routes";
+import { UserDashboardPage } from "@/views/user-dashboard/UserDashboardPage";
 
 const Page = async () => {
 	await ssrAuthGuard({ against: "role",allowRole:"user" });
 
-	return <div>User dashboard</div>;
+	return <UserDashboardPage/>;
 };
 export default Page;
