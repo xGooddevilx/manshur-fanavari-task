@@ -9,7 +9,6 @@
   - [🛠️ Technologies Used](#️-technologies-used)
   - [📁 Folder Structure](#-folder-structure)
   - [🧪 Sample Users](#-sample-users)
-  - [🔐 Environment Variables](#-environment-variables)
   - [🧰 Getting Started](#-getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation \& Running](#installation--running)
@@ -60,27 +59,8 @@ src/
 
 | Username | Password  | Role  |
 |----------|-----------|-------|
-| `admin`  | `admin123`| `admin` |
-| `user`   | `user123` | `user`  |
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env.local` file in the root:
-
-```env
-NEXT_PUBLIC_ENV=development
-NEXT_PUBLIC_API_URL_ADDRESS=http://localhost:3000
-NEXT_PUBLIC_API_PREFIX_URL=/api
-
-JWT_SECRET=your-secret-key
-```
-
-> ✅ Generate a secure `JWT_SECRET` using:
-```bash
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-```
+| admin    | admin123  | admin |
+| user     | user123   | user  |
 
 ---
 
@@ -90,11 +70,11 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 
 Make sure you have the following installed:
 
-| Tool         | Version    | Install Command                                       |
-|--------------|------------|--------------------------------------------------------|
-| Node.js      | `v20+`     | [https://nodejs.org/](https://nodejs.org/)            |
-| pnpm         | `v8+`      | `npm i -g pnpm`                                       |
-| Git          | latest     | [https://git-scm.com/](https://git-scm.com/)          |
+| Tool     | Version | Install Command                                |
+|----------|---------|-------------------------------------------------|
+| Node.js  | v20+    | [https://nodejs.org/](https://nodejs.org/)     |
+| pnpm     | v8+     | `npm i -g pnpm`                                 |
+| Git      | latest  | [https://git-scm.com/](https://git-scm.com/)   |
 
 ---
 
@@ -115,9 +95,25 @@ pnpm install
 
 3. **Configure environment variables**
 
+Create a `.env` file in the root:
+
 ```bash
 cp .env.example .env
 # Then edit .env with your values
+```
+
+```env
+NEXT_PUBLIC_ENV=development
+NEXT_PUBLIC_API_URL_ADDRESS=http://localhost:3000
+NEXT_PUBLIC_API_PREFIX_URL=/api
+
+JWT_SECRET=your-secret-key
+```
+
+> ✅ Generate a secure `JWT_SECRET` using:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
 
 4. **Run the development server**
@@ -134,7 +130,7 @@ pnpm dev
 
 | Method | Endpoint             | Description                    |
 |--------|----------------------|--------------------------------|
-| `POST` | `/api/auth/login`    | Login with username/password   |
-| `POST` | `/api/auth/logout`   | Logout & clear session         |
-| `GET`  | `/api/auth/whoami`   | Current authenticated user     |
-| `GET`  | `/api/admin/users`   | Admin-only: Fetch all users    |
+| POST   | /api/auth/login      | Login with username/password   |
+| POST   | /api/auth/logout     | Logout & clear session         |
+| GET    | /api/auth/whoami     | Current authenticated user     |
+| GET    | /api/admin/users     | Admin-only: Fetch all users    |
