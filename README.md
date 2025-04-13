@@ -108,6 +108,8 @@ NEXT_PUBLIC_ENV=development
 NEXT_PUBLIC_API_URL_ADDRESS=http://localhost:3000
 NEXT_PUBLIC_API_PREFIX_URL=/api
 
+API_BASE_ADDRESS=http://localhost:3000/api
+
 JWT_SECRET=your-secret-key
 ```
 
