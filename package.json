@@ -19,6 +19,7 @@
 		"@bprogress/next": "^3.2.11",
 		"@hookform/resolvers": "^5.0.1",
 		"@mobily/ts-belt": "^3.13.1",
+		"@radix-ui/react-dialog": "^1.1.7",
 		"@radix-ui/react-popover": "^1.1.7",
 		"@radix-ui/react-slot": "^1.2.0",
 		"@t3-oss/env-nextjs": "^0.12.0",
