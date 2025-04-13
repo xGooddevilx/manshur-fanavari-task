@@ -1,5 +1,5 @@
 import { ssrAuthGuard } from "@/modules/auth/ssrAuthGuard";
-import { routes } from "@/modules/routes";
+import { AdminDashboardPage } from "@/views/admin-dashboard/AdminDashboardPage";
 
 const Page = async () => {
 
@@ -7,7 +7,7 @@ const Page = async () => {
 
 
     return (
-      <div>Admin Dashboard</div>
+      <AdminDashboardPage/>
     )
   }
-  export default Page
+export default Page

@@ -9,3 +9,7 @@ export interface User {
 }
 
 export type UserDto = Omit<User, "password">;
+export interface UsersApiResponse {
+	users: UserDto[];
+  }
+  
