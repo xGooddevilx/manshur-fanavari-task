@@ -29,17 +29,21 @@ export const AuthProvider = ({
 	const login = useCallback(
 		async (loginVariables: LoginVariables) => {
 			setIsAuthenticating(true);
-			await apiClient.post("auth/login", { json: loginVariables });
-			const userResult = await apiClient.get("auth/whoami").json<UserDto>();
+			try {
+				await apiClient.post("auth/login", { json: loginVariables });
+				const userResult = await apiClient.get("auth/whoami").json<UserDto>();
 
-			setIsAuthenticating(false);
-
-			if (G.isNotNullable(userResult)) {
-				setUser(userResult);
-				return userResult;
-			} else {
-				console.log("Authentication failed!!!!");
-				return undefined;
+				if (G.isNotNullable(userResult)) {
+					setUser(userResult);
+					return userResult;
+				} else {
+					console.log("Authentication failed!!!!");
+					return undefined;
+				}
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setIsAuthenticating(false);	
 			}
 		},
 		[setIsAuthenticating, setUser]
@@ -50,10 +54,9 @@ export const AuthProvider = ({
 			setUser(undefined);
 			setIsAuthenticating(true);
 			await apiClient.post("auth/logout");
-
 		} finally {
 			setIsAuthenticating(false);
-			redirect(routes.auth.login)
+			redirect(routes.auth.login);
 		}
 	}, []);
 
