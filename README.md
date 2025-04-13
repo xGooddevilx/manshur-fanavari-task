@@ -47,10 +47,11 @@ src/
 │   ├── api/           # Next.js API routes (backend logic)
 ├── components/        # Reusable UI components
 │   ├── ui/            # Tables, Inputs, Toasts etc.
-│   └── layouts/       # Layout wrappers
+├── layouts/           # Layout wrappersBusiness modules like auth, env, etc.
 ├── modules/           # Business modules like auth, env, etc.
 ├── styles/            # Tailwind & global styles
 ├── utils/             # Utility helpers
+├── views/             # Views for rendering specific page layouts and UI logic
 ```
 
 ---
