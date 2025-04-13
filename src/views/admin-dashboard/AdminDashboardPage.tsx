@@ -4,7 +4,6 @@ import { useGetUserList } from "@/api-services/queries/users";
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableHead,
 	TableHeader,
 	TableRow,
@@ -13,8 +12,6 @@ import {
 import { A, G } from "@mobily/ts-belt";
 import { InboxIcon } from "lucide-react";
 import { TableContentSkeleton } from "./components/TableContentSkeleton";
-import { useEffect } from "react";
-import { toast } from "sonner";
 
 export const AdminDashboardPage = () => {
 	const { data, isLoading } = useGetUserList();
