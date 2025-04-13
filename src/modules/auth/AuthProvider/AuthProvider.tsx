@@ -7,12 +7,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AuthContextType } from "./AuthContext";
 
 import { AuthContext } from "./AuthContext";
-import { G, R } from "@mobily/ts-belt";
+import { G } from "@mobily/ts-belt";
 import { LoginResponse, LoginVariables, LogoutApiResponse, UserDto } from "@/api-services/types";
 import { apiClient } from "@/api-services/api-client/ApiClient";
-import { redirect, useRouter } from "next/navigation";
 import { routes } from "@/modules/routes";
 import { toast } from "sonner";
+import { useRouter } from "@bprogress/next";
 
 export type AuthProviderProperties = {
 	children: ReactNode;
