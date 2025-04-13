@@ -47,10 +47,11 @@ src/
 │   ├── api/           # Next.js API routes (backend logic)
 ├── components/        # Reusable UI components
 │   ├── ui/            # Tables, Inputs, Toasts etc.
-│   └── layouts/       # Layout wrappers
+├── layouts/           # Layout wrappersBusiness modules like auth, env, etc.
 ├── modules/           # Business modules like auth, env, etc.
 ├── styles/            # Tailwind & global styles
 ├── utils/             # Utility helpers
+├── views/             # Views for rendering specific page layouts and UI logic
 ```
 
 ---
@@ -106,6 +107,8 @@ cp .env.example .env
 NEXT_PUBLIC_ENV=development
 NEXT_PUBLIC_API_URL_ADDRESS=http://localhost:3000
 NEXT_PUBLIC_API_PREFIX_URL=/api
+
+API_BASE_ADDRESS=http://localhost:3000/api
 
 JWT_SECRET=your-secret-key
 ```
