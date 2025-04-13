@@ -4,11 +4,10 @@ import "@/styles/globals.css";
 import { ReactQueryProvider } from "@/modules/react-query/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "@/modules/auth/AuthProvider/AuthProvider";
-import { apiClient } from "@/api-services/api-client/ApiClient";
 import { G } from "@mobily/ts-belt";
-import { UserDto } from "@/api-services/types";
 import { ssrGetUser } from "@/modules/auth/ssrGetUser";
 import { Toaster } from "sonner";
+import { ProgressProvider } from "@/modules/ProgressProvider/ProgressProvider";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -33,21 +32,25 @@ export const RootLayout = async ({
 	const user = await ssrGetUser();
 
 	return (
-		<AuthProvider initialData={G.isNotNullable(user) ? user : undefined}>
-			<ReactQueryProvider>
-				<html lang="en">
-					<body
-						className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-					>
-						{children}
-						<ReactQueryDevtools
-							buttonPosition="bottom-right"
-							initialIsOpen={false}
-						/>
-						<Toaster />
-					</body>
-				</html>
-			</ReactQueryProvider>
-		</AuthProvider>
+		<ReactQueryProvider>
+			<html lang="en">
+				<body
+					className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				>
+					<ProgressProvider>
+						<AuthProvider
+							initialData={G.isNotNullable(user) ? user : undefined}
+						>
+							{children}
+							<ReactQueryDevtools
+								buttonPosition="bottom-right"
+								initialIsOpen={false}
+							/>
+						</AuthProvider>
+					</ProgressProvider>
+					<Toaster />
+				</body>
+			</html>
+		</ReactQueryProvider>
 	);
 };
