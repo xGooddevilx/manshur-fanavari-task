@@ -28,7 +28,7 @@ export const User = () => {
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
 			<div className="flex items-center gap-2">
-				{hasUser && <p className="font-semibold">{user.name}</p>}
+				{hasUser && <p className="font-semibold hidden lg:block">{user.name}</p>}
 				<PopoverTrigger className="flex items-center space-x-2 bg-gray-200 p-2 rounded-full hover:bg-gray-300 focus:outline-none">
 					{isAuthenticating ? (
 						<Loader2Icon className="animate-spin" />
