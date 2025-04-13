@@ -8,10 +8,11 @@ import type { AuthContextType } from "./AuthContext";
 
 import { AuthContext } from "./AuthContext";
 import { G, R } from "@mobily/ts-belt";
-import { LoginVariables, UserDto } from "@/api-services/types";
+import { LoginResponse, LoginVariables, LogoutApiResponse, UserDto } from "@/api-services/types";
 import { apiClient } from "@/api-services/api-client/ApiClient";
 import { redirect } from "next/navigation";
 import { routes } from "@/modules/routes";
+import { toast } from "sonner";
 
 export type AuthProviderProperties = {
 	children: ReactNode;
@@ -30,18 +31,25 @@ export const AuthProvider = ({
 		async (loginVariables: LoginVariables) => {
 			setIsAuthenticating(true);
 			try {
-				await apiClient.post("auth/login", { json: loginVariables });
-				const userResult = await apiClient.get("auth/whoami").json<UserDto>();
+				const response = await apiClient.post("auth/login", { json: loginVariables }).json<LoginResponse>();
+				const userResult = await apiClient.get("auth/whoami").json<UserDto | undefined>();
 
 				if (G.isNotNullable(userResult)) {
 					setUser(userResult);
+					toast.success(response.message)
+
 					return userResult;
 				} else {
-					console.log("Authentication failed!!!!");
+					toast.error("Authentication failed, Please login again")
 					return undefined;
 				}
-			} catch (error) {
-				console.log(error);
+			} catch (error:any) {
+				if (error.response) {
+					const errData = await error.response.json();
+					toast.error(errData.error);
+				} else {
+					toast.error("Something went wrong. Please try again.");
+				}
 			} finally {
 				setIsAuthenticating(false);	
 			}
@@ -53,7 +61,10 @@ export const AuthProvider = ({
 		try {
 			setUser(undefined);
 			setIsAuthenticating(true);
-			await apiClient.post("auth/logout");
+			const response = await apiClient.post("auth/logout").json<LogoutApiResponse>();
+			
+			toast.success(response.message)
+
 		} finally {
 			setIsAuthenticating(false);
 			redirect(routes.auth.login);

@@ -9,7 +9,7 @@ import {
 	TableHeader,
 	TableRow,
 	TableCell,
-} from "@/components/ui/table";
+} from "@/components/ui/Table";
 import { A, G } from "@mobily/ts-belt";
 import { InboxIcon } from "lucide-react";
 
