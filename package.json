@@ -1,7 +1,7 @@
 {
-	"name": "manshur-fanavari-task",
+	"name": "role-based-auth",
 	"version": "1.0.0",
-	"description": "Front end Authentication task assignment",
+	"description": "Simple role based authentication system",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
