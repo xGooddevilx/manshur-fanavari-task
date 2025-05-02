@@ -1,10 +1,9 @@
-# Manshure Fanavari Task
+# Role based authentication system
 
 ---
 
 ## 📚 Table of Contents
 
-- [Manshure Fanavari Task](#manshure-fanavari-task)
   - [📚 Table of Contents](#-table-of-contents)
   - [🛠️ Technologies Used](#️-technologies-used)
   - [📁 Folder Structure](#-folder-structure)
@@ -84,8 +83,8 @@ Make sure you have the following installed:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/xGooddevilx/manshur-fanavari-task.git
-cd manshur-fanavari-task
+git clone https://github.com/xGooddevilx/simple-role-based-authentication.git
+cd simple-role-based-authentication
 ```
 
 2. **Install dependencies**
